@@ -1,0 +1,42 @@
+.marquee-section {
+  padding: 10vh 0;
+  overflow: hidden;
+  background-color: var(--bg-color);
+  border-top: 1px solid #111;
+  border-bottom: 1px solid #111;
+}
+
+.marquee {
+  width: 100vw;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.marquee-content {
+  display: inline-block;
+  animation: marquee 25s linear infinite;
+}
+
+.marquee-text {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(3rem, 8vw, 8rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 1px #444; /* Texto hueco gris oscuro */
+  padding-right: 2rem;
+  transition: -webkit-text-stroke 0.3s;
+}
+
+.marquee-section:hover .marquee-text {
+  -webkit-text-stroke: 1px #fff; /* Se ilumina al hacer hover */
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
