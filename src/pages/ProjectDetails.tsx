@@ -13,7 +13,14 @@ export const ProjectDetails = () => {
       stack: ['Python', 'FastAPI', 'Google Cloud Platform', 'TensorFlow', 'PostgreSQL'],
       problem: 'El triaje en salas de urgencias estaba saturado, causando largos tiempos de espera y riesgo para pacientes críticos al depender únicamente de evaluación manual.',
       solution: 'Se diseñó un motor de inferencia en tiempo real desplegado en GCP usando Cloud Run. El sistema consume los síntomas y signos vitales mediante una API REST en FastAPI, procesándolos a través de un modelo TensorFlow optimizado para entregar un nivel de urgencia clínico en menos de 10 segundos.',
-      architecture: 'Cliente Frontend -> API Gateway -> FastAPI (Cloud Run) -> TF Serving (GKE) -> Cloud SQL (PostgreSQL)'
+      architecture: 'Cliente Frontend -> API Gateway -> FastAPI (Cloud Run) -> TF Serving (GKE) -> Cloud SQL (PostgreSQL)',
+      images: [
+        '/auramed-1.png',
+        '/auramed-2.png',
+        '/auramed-3.png',
+        '/auramed-4.png',
+        '/auramed-5.png'
+      ]
     },
     'fintrack': {
       title: 'FinTrack',
@@ -80,14 +87,36 @@ export const ProjectDetails = () => {
             <p style={{ color: '#aaa', fontFamily: 'monospace', fontSize: '1.125rem' }}>{data.architecture}</p>
           </div>
           
-          {/* Espacio para colocar las imágenes y capturas de pantalla de AuraMed */}
-          <div style={{ marginTop: '5rem', width: '100%', minHeight: '50vh', backgroundColor: '#050505', borderRadius: '12px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', border: '1px dashed #333' }}>
-            <p style={{ color: '#555', textAlign: 'center', padding: '2rem' }}>
-              <strong>[ Galería de Imágenes / Arquitectura ]</strong><br/><br/>
-              Aquí puedes colocar las etiquetas {`<img src="/ruta-a-tu-foto.jpg" />`}<br/>
-              con todas las capturas de pantalla detalladas del proyecto.
-            </p>
-          </div>
+          {data.images && data.images.length > 0 ? (
+            <div style={{ marginTop: '5rem', display: 'flex', flexDirection: 'column', gap: '3rem' }}>
+              <h3 style={{ color: '#fff', marginBottom: '-1rem', fontSize: '1.5rem', textTransform: 'uppercase' }}>Galería de Interfaces</h3>
+              {data.images.map((imgUrl: string, i: number) => (
+                <motion.div 
+                  key={i}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-100px' }}
+                  transition={{ duration: 0.6, ease: 'easeOut', delay: i * 0.1 }}
+                  style={{ 
+                    width: '100%', 
+                    borderRadius: '16px', 
+                    overflow: 'hidden',
+                    border: '1px solid rgba(255,255,255,0.05)',
+                    boxShadow: '0 20px 40px rgba(0,0,0,0.5)',
+                    backgroundColor: 'rgba(255,255,255,0.02)'
+                  }}
+                >
+                  <img src={imgUrl} alt={`${data.title} screenshot ${i+1}`} style={{ width: '100%', height: 'auto', display: 'block' }} />
+                </motion.div>
+              ))}
+            </div>
+          ) : (
+            <div style={{ marginTop: '5rem', width: '100%', minHeight: '50vh', backgroundColor: '#050505', borderRadius: '12px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', border: '1px dashed #333' }}>
+              <p style={{ color: '#555', textAlign: 'center', padding: '2rem' }}>
+                <strong>[ Sin imágenes de proyecto ]</strong>
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </motion.main>
