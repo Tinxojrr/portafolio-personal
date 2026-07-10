@@ -11,6 +11,7 @@ export const ProjectDetails = () => {
   const projectData: Record<string, any> = {
     'auramed': {
       title: 'AuraMed',
+      link: 'https://aura-med-eight.vercel.app/',
       role: 'Backend & Cloud Engineer',
       stack: ['Python', 'FastAPI', 'Google Cloud Platform', 'TensorFlow', 'PostgreSQL'],
       problem: 'El triaje en salas de urgencias estaba saturado, causando largos tiempos de espera y riesgo para pacientes críticos al depender únicamente de evaluación manual.',
@@ -57,14 +58,47 @@ export const ProjectDetails = () => {
         <p style={{ color: '#888', fontSize: '1.25rem', letterSpacing: '2px' }}>← VOLVER AL PORTAFOLIO</p>
       </div>
 
-      <motion.h1 
-        initial={{ y: 50, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.2, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        className="text-huge"
-      >
-        {data.title}
-      </motion.h1>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '2rem', flexWrap: 'wrap' }}>
+        <motion.h1 
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.2, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="text-huge"
+          style={{ margin: 0 }}
+        >
+          {data.title}
+        </motion.h1>
+        
+        {data.link && (
+          <motion.a 
+            href={data.link}
+            target="_blank"
+            rel="noreferrer"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.6, duration: 0.8 }}
+            className="hover-target"
+            style={{ 
+              display: 'inline-flex', alignItems: 'center', gap: '0.75rem',
+              padding: '0.75rem 1.5rem', borderRadius: '9999px',
+              background: 'rgba(6, 182, 212, 0.1)', color: '#fff', border: '1px solid rgba(6, 182, 212, 0.4)', textDecoration: 'none',
+              fontWeight: 500, fontSize: '1rem', transition: 'all 0.2s',
+              fontFamily: 'Inter, sans-serif',
+              boxShadow: '0 0 15px rgba(6, 182, 212, 0.15)',
+              marginTop: '0.5rem'
+            }}
+            onMouseOver={(e) => { e.currentTarget.style.background = 'rgba(6,182,212,0.2)'; e.currentTarget.style.transform = 'scale(1.05)'; }} 
+            onMouseOut={(e) => { e.currentTarget.style.background = 'rgba(6, 182, 212, 0.1)'; e.currentTarget.style.transform = 'scale(1)'; }}
+          >
+            Ver Proyecto en Vivo
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+          </motion.a>
+        )}
+      </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '4rem', marginTop: '10vh' }}>
         <div>
@@ -113,7 +147,7 @@ export const ProjectDetails = () => {
                 </div>
               </div>
               
-              <div style={{ position: 'relative', width: '100%', borderRadius: '16px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.05)', boxShadow: '0 20px 40px rgba(0,0,0,0.5)', backgroundColor: '#050505', aspectRatio: '16/9' }}>
+              <div style={{ position: 'relative', width: '100%', borderRadius: '16px', overflow: 'hidden', boxShadow: '0 20px 40px rgba(0,0,0,0.5)', backgroundColor: 'transparent', aspectRatio: '16/9' }}>
                 <AnimatePresence mode="wait">
                   <motion.img 
                     key={currentImageIndex}
