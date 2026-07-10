@@ -1,9 +1,11 @@
+import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export const ProjectDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   // Mock de base de datos de los proyectos (el usuario puede modificar esto)
   const projectData: Record<string, any> = {
@@ -19,7 +21,9 @@ export const ProjectDetails = () => {
         '/auramed-2.png',
         '/auramed-3.png',
         '/auramed-4.png',
-        '/auramed-5.png'
+        '/auramed-5.png',
+        '/auramed-6.png',
+        '/auramed-7.png'
       ]
     },
     'fintrack': {
@@ -88,27 +92,58 @@ export const ProjectDetails = () => {
           </div>
           
           {data.images && data.images.length > 0 ? (
-            <div style={{ marginTop: '5rem', display: 'flex', flexDirection: 'column', gap: '3rem' }}>
-              <h3 style={{ color: '#fff', marginBottom: '-1rem', fontSize: '1.5rem', textTransform: 'uppercase' }}>Galería de Interfaces</h3>
-              {data.images.map((imgUrl: string, i: number) => (
-                <motion.div 
-                  key={i}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-100px' }}
-                  transition={{ duration: 0.6, ease: 'easeOut', delay: i * 0.1 }}
-                  style={{ 
-                    width: '100%', 
-                    borderRadius: '16px', 
-                    overflow: 'hidden',
-                    border: '1px solid rgba(255,255,255,0.05)',
-                    boxShadow: '0 20px 40px rgba(0,0,0,0.5)',
-                    backgroundColor: 'rgba(255,255,255,0.02)'
-                  }}
-                >
-                  <img src={imgUrl} alt={`${data.title} screenshot ${i+1}`} style={{ width: '100%', height: 'auto', display: 'block' }} />
-                </motion.div>
-              ))}
+            <div style={{ marginTop: '5rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+                <h3 style={{ color: '#fff', margin: 0, fontSize: '1.5rem', textTransform: 'uppercase' }}>Galería de Interfaces</h3>
+                <div style={{ display: 'flex', gap: '1rem' }}>
+                  <button 
+                    className="hover-target"
+                    onClick={() => setCurrentImageIndex((prev) => (prev - 1 + data.images.length) % data.images.length)}
+                    style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', padding: '0.5rem 1rem', borderRadius: '8px', fontFamily: 'monospace', fontSize: '0.85rem' }}
+                  >
+                    {'<'} ANTERIOR
+                  </button>
+                  <button 
+                    className="hover-target"
+                    onClick={() => setCurrentImageIndex((prev) => (prev + 1) % data.images.length)}
+                    style={{ background: 'rgba(6, 182, 212, 0.1)', border: '1px solid rgba(6, 182, 212, 0.3)', color: '#06b6d4', padding: '0.5rem 1rem', borderRadius: '8px', fontFamily: 'monospace', fontSize: '0.85rem' }}
+                  >
+                    SIGUIENTE {'>'}
+                  </button>
+                </div>
+              </div>
+              
+              <div style={{ position: 'relative', width: '100%', borderRadius: '16px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.05)', boxShadow: '0 20px 40px rgba(0,0,0,0.5)', backgroundColor: '#050505', aspectRatio: '16/9' }}>
+                <AnimatePresence mode="wait">
+                  <motion.img 
+                    key={currentImageIndex}
+                    src={data.images[currentImageIndex]}
+                    alt={`${data.title} screenshot ${currentImageIndex+1}`}
+                    initial={{ opacity: 0, scale: 0.98, filter: 'blur(10px)' }}
+                    animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                    exit={{ opacity: 0, scale: 1.02, filter: 'blur(10px)' }}
+                    transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                    style={{ width: '100%', height: '100%', objectFit: 'contain', position: 'absolute', top: 0, left: 0 }}
+                  />
+                </AnimatePresence>
+                
+                {/* Indicadores de paginación */}
+                <div style={{ position: 'absolute', bottom: '1.5rem', left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: '0.5rem', padding: '0.5rem 1rem', background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(10px)', borderRadius: '9999px', border: '1px solid rgba(255,255,255,0.1)' }}>
+                  {data.images.map((_: any, i: number) => (
+                    <div 
+                      key={i} 
+                      className="hover-target"
+                      onClick={() => setCurrentImageIndex(i)}
+                      style={{ 
+                        width: '8px', height: '8px', borderRadius: '50%',
+                        background: currentImageIndex === i ? '#06b6d4' : 'rgba(255,255,255,0.3)',
+                        transition: 'background 0.3s',
+                        boxShadow: currentImageIndex === i ? '0 0 10px #06b6d4' : 'none'
+                      }} 
+                    />
+                  ))}
+                </div>
+              </div>
             </div>
           ) : (
             <div style={{ marginTop: '5rem', width: '100%', minHeight: '50vh', backgroundColor: '#050505', borderRadius: '12px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', border: '1px dashed #333' }}>
