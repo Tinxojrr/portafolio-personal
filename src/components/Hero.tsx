@@ -1,40 +1,127 @@
 import { motion } from 'framer-motion';
+import { DataTerminal } from './DataTerminal';
 
 export const Hero = () => {
   return (
-    <section className="min-h-screen flex-center section-padding">
-      <div style={{ width: '100%' }}>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-          style={{ marginBottom: '2rem', fontSize: '1.25rem', color: '#888' }}
-        >
-          ESTUDIANTE DE INGENIERIA EN INFORMATICA
-        </motion.p>
+    <section className="section-padding" style={{ position: 'relative', minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+      
+      <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '4rem', marginTop: '-5vh' }}>
+        
+        {/* Columna Izquierda: Jerarquía Principal */}
+        <div style={{ flex: '1 1 500px', maxWidth: '700px' }}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            style={{ marginBottom: '2rem' }}
+          >
+            <span style={{ 
+              display: 'inline-block', 
+              padding: '0.5rem 1.5rem', 
+              borderRadius: '9999px', 
+              border: '1px solid rgba(255,255,255,0.1)', 
+              background: 'rgba(255,255,255,0.03)',
+              fontSize: '0.85rem',
+              letterSpacing: '0.1em',
+              color: '#fff',
+            }}>
+              Data Engineering · Cloud · IA
+            </span>
+          </motion.div>
 
-        <motion.h1
-          className="text-huge hover-target"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-        >
-          MARTIN ABURTO<br />
-          PORTAFOLIO
-        </motion.h1>
+          <motion.h1
+            className="text-huge hover-target"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginTop: '1rem' }}
+          >
+            <span style={{ 
+              fontFamily: "'Space Grotesk', sans-serif", 
+              fontSize: 'clamp(2rem, 5vw, 4rem)', 
+              fontWeight: 500, 
+              color: '#aaa',
+              letterSpacing: '-0.01em'
+            }}>
+              MARTIN ABURTO
+            </span>
+            <span style={{ color: '#fff', lineHeight: 0.9 }}>PORTAFOLIO</span>
+          </motion.h1>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1 }}
-          style={{ marginTop: '4rem', maxWidth: '500px' }}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 1 }}
+            style={{ 
+              marginTop: '3rem', 
+              maxWidth: '550px',
+              paddingLeft: '1.5rem',
+              borderLeft: '2px solid rgba(6, 182, 212, 0.4)'
+            }}
+          >
+            <p className="text-body" style={{ color: '#888' }}>
+              Estudiante de Ingeniería en Informática especializado en arquitecturas cloud escalables (Azure/GCP).
+              Modelos de Machine Learning (TensorFlow/PyTorch), pipelines Big Data y Backend avanzado.
+            </p>
+            <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem' }}>
+              <a href="https://github.com/Tinxojrr" target="_blank" rel="noreferrer" style={{ 
+                display: 'inline-flex', alignItems: 'center', gap: '0.75rem',
+                padding: '0.75rem 1.5rem', borderRadius: '9999px',
+                background: '#fff', color: '#000', textDecoration: 'none',
+                fontWeight: 600, fontSize: '0.9rem', transition: 'transform 0.2s',
+                fontFamily: 'Inter, sans-serif'
+              }} className="hover-target" onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'} onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+                </svg>
+                GitHub
+              </a>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Columna Derecha: Elemento Visual (Terminal) */}
+        <motion.div 
+          style={{ flex: '1 1 300px', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', justifyContent: 'center', position: 'relative' }}
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
         >
-          <p className="text-body" style={{ color: '#aaa' }}>
-            Especializado en crear experiencias digitales premium.
-            Diseño minimalista, alto contraste y desarrollo frontend avanzado.
-          </p>
+          {/* Orbe local para hacer que el GlassPanel haga refracción sobre algo luminoso */}
+          <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '350px', height: '350px', background: 'radial-gradient(circle, rgba(6,182,212,0.3) 0%, transparent 60%)', filter: 'blur(50px)', zIndex: -1, pointerEvents: 'none', mixBlendMode: 'screen' }} />
+          <DataTerminal />
         </motion.div>
       </div>
+
+      {/* Indicador de Scroll Inferior */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2, duration: 1 }}
+        style={{
+          position: 'absolute',
+          bottom: '3rem',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '1rem',
+          opacity: 0.5
+        }}
+      >
+        <span style={{ fontSize: '0.75rem', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#888' }}>Scroll</span>
+        <motion.div 
+          style={{ width: '1px', height: '40px', background: '#444', overflow: 'hidden', position: 'relative' }}
+        >
+          <motion.div 
+            animate={{ y: [0, 40] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: 'linear' }}
+            style={{ width: '100%', height: '50%', background: '#fff', position: 'absolute', top: 0 }}
+          />
+        </motion.div>
+      </motion.div>
+
     </section>
   );
 };

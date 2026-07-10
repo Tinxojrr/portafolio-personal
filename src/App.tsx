@@ -3,7 +3,7 @@ import Lenis from '@studio-freight/lenis';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { Preloader } from './components/Preloader';
 import { CustomCursor } from './components/CustomCursor';
-import { BackgroundEffects } from './components/BackgroundEffects';
+import { AmbientBackground } from './components/AmbientBackground';
 import { Home } from './pages/Home';
 import { ProjectDetails } from './pages/ProjectDetails';
 import './index.css';
@@ -42,7 +42,7 @@ function App() {
       <ScrollToTop />
       <Preloader />
       <CustomCursor />
-      <BackgroundEffects />
+      <AmbientBackground />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/proyecto/:id" element={<ProjectDetails />} />

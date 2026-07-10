@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import { motion, useScroll, useSpring, useTransform, useVelocity, useAnimationFrame, useMotionValue } from 'framer-motion';
+import { GlassPanel } from './GlassPanel';
 import './TechStack.css';
 
 interface ParallaxProps {
@@ -7,12 +8,13 @@ interface ParallaxProps {
   baseVelocity: number;
 }
 
+// Función helper para envolver el valor
 const wrap = (min: number, max: number, v: number) => {
   const rangeSize = max - min;
   return ((((v - min) % rangeSize) + rangeSize) % rangeSize) + min;
 };
 
-function ParallaxText({ children, baseVelocity = 100 }: ParallaxProps) {
+const ParallaxText = ({ children, baseVelocity = 100 }: ParallaxProps) => {
   const baseX = useMotionValue(0);
   const { scrollY } = useScroll();
   const scrollVelocity = useVelocity(scrollY);
@@ -24,11 +26,11 @@ function ParallaxText({ children, baseVelocity = 100 }: ParallaxProps) {
     clamp: false
   });
 
-  const x = useTransform(baseX, (v: number) => `${wrap(-20, -45, v)}%`);
-
   const directionFactor = useRef<number>(1);
-  useAnimationFrame((_t, delta) => {
+
+  useAnimationFrame((t, delta) => {
     let moveBy = directionFactor.current * baseVelocity * (delta / 1000);
+
     if (velocityFactor.get() < 0) {
       directionFactor.current = -1;
     } else if (velocityFactor.get() > 0) {
@@ -39,25 +41,43 @@ function ParallaxText({ children, baseVelocity = 100 }: ParallaxProps) {
     baseX.set(baseX.get() + moveBy);
   });
 
+  const x = useTransform(baseX, (v) => `${wrap(-20, -45, v)}%`);
+
   return (
-    <div className="parallax" style={{ overflow: 'hidden', margin: 0, whiteSpace: 'nowrap', display: 'flex', flexWrap: 'nowrap' }}>
+    <div className="parallax" style={{ overflow: 'hidden', margin: 0, whiteSpace: 'nowrap', display: 'flex', flexWrap: 'nowrap', width: '100%' }}>
       <motion.div className="scroller" style={{ x, display: 'flex', whiteSpace: 'nowrap', gap: '2rem' }}>
-        <span className="marquee-text">{children} </span>
-        <span className="marquee-text">{children} </span>
-        <span className="marquee-text">{children} </span>
-        <span className="marquee-text">{children} </span>
+        <span style={{ display: 'block', fontSize: '2rem', color: '#888' }}>{children} </span>
+        <span style={{ display: 'block', fontSize: '2rem', color: '#888' }}>{children} </span>
+        <span style={{ display: 'block', fontSize: '2rem', color: '#888' }}>{children} </span>
+        <span style={{ display: 'block', fontSize: '2rem', color: '#888' }}>{children} </span>
       </motion.div>
     </div>
   );
-}
+};
 
 export const TechStack = () => {
-  const stack = "PYTHON — GCP — REACT — FASTAPI — BIGQUERY — MACHINE LEARNING — CLOUD — CYBERSECURITY — ";
-  
   return (
-    <section className="section-padding" style={{ paddingBlock: '10vh', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-      <ParallaxText baseVelocity={-2}>{stack}</ParallaxText>
-      <ParallaxText baseVelocity={2}>{stack}</ParallaxText>
+    <section style={{ 
+      padding: '4rem 0', 
+      display: 'flex', 
+      flexDirection: 'column', 
+      justifyContent: 'center', 
+      overflow: 'hidden',
+      background: 'rgba(255, 255, 255, 0.02)',
+      backdropFilter: 'blur(24px)',
+      WebkitBackdropFilter: 'blur(24px)',
+      borderTop: '1px solid rgba(255, 255, 255, 0.05)',
+      borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
+      position: 'relative',
+      zIndex: 2
+    }}>
+      <p className="font-mono" style={{ color: '#888', marginBottom: '4rem', fontSize: '0.85rem', textTransform: 'uppercase', paddingLeft: '4rem' }}>
+        Tecnologías
+      </p>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+        <ParallaxText baseVelocity={-2}>REACT FASTAPI PYTHON GO GCP DOCKER</ParallaxText>
+        <ParallaxText baseVelocity={2}>BIGQUERY TENSORFLOW KUBERNETES SQL</ParallaxText>
+      </div>
     </section>
   );
 };
