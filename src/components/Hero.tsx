@@ -79,7 +79,7 @@ export const Hero = () => {
               </a>
 
               {/* Botón Secundario: LinkedIn */}
-              <a href="https://linkedin.com/in/martinaburto" target="_blank" rel="noreferrer" style={{ 
+              <a href="https://www.linkedin.com/in/martín-aburto-méndez-369326291" target="_blank" rel="noreferrer" style={{ 
                 display: 'inline-flex', alignItems: 'center', gap: '0.75rem',
                 padding: '0.75rem 1.5rem', borderRadius: '9999px',
                 background: 'rgba(255,255,255,0.03)', color: '#fff', border: '1px solid rgba(255,255,255,0.15)', textDecoration: 'none',
