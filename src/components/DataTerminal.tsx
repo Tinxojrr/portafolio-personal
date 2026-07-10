@@ -50,6 +50,8 @@ export const DataTerminal = () => {
           gap: '0.5rem',
           height: '110px',
           position: 'relative',
+          maskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 100%)',
           overflow: 'hidden'
         }}>
           <div style={{ position: 'absolute', bottom: 0, width: '100%', display: 'flex', flexDirection: 'column', gap: '0.5rem', paddingBottom: '0.5rem' }}>

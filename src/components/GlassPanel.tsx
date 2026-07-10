@@ -57,10 +57,8 @@ export const GlassPanel = ({ children, tilt = 6, style, className = '' }: GlassP
       style={{
         ...style,
         position: 'relative',
-        transformStyle: 'preserve-3d',
         rotateX,
         rotateY,
-        perspective: 1500,
       }}
       initial={{ rotateX: 0, rotateY: 0 }}
       animate={{ 
