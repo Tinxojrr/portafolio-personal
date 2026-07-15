@@ -1,6 +1,5 @@
 import { useRef } from 'react';
 import { motion, useScroll, useSpring, useTransform, useVelocity, useAnimationFrame, useMotionValue } from 'framer-motion';
-import { GlassPanel } from './GlassPanel';
 import './TechStack.css';
 
 interface ParallaxProps {
@@ -28,7 +27,7 @@ const ParallaxText = ({ children, baseVelocity = 100 }: ParallaxProps) => {
 
   const directionFactor = useRef<number>(1);
 
-  useAnimationFrame((t, delta) => {
+  useAnimationFrame((_, delta) => {
     let moveBy = directionFactor.current * baseVelocity * (delta / 1000);
 
     if (velocityFactor.get() < 0) {
