@@ -31,7 +31,7 @@ export const Footer = () => {
               <a href="https://www.linkedin.com/in/martín-aburto-méndez-369326291" target="_blank" rel="noopener noreferrer" className="hover-target" style={{ color: '#888', textDecoration: 'none', fontSize: '1.125rem', transition: 'color 0.3s', cursor: 'none' }}>LinkedIn</a>
             </Magnetic>
             <Magnetic>
-              <a href="#" className="hover-target" style={{ color: '#888', textDecoration: 'none', fontSize: '1.125rem', transition: 'color 0.3s', cursor: 'none' }}>GitHub</a>
+              <a href="https://github.com/Tinxojrr" target="_blank" rel="noopener noreferrer" className="hover-target" style={{ color: '#888', textDecoration: 'none', fontSize: '1.125rem', transition: 'color 0.3s', cursor: 'none' }}>GitHub</a>
             </Magnetic>
           </div>
         </div>

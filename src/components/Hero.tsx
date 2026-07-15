@@ -1,5 +1,48 @@
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { DataTerminal } from './DataTerminal';
+import { ScrambleText } from './ScrambleText';
+import { useState, useEffect, useRef } from 'react';
+
+const AnimatedCounter = ({ value, label, suffix = '' }: { value: number, label: string, suffix?: string }) => {
+  const [count, setCount] = useState(0);
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true });
+
+  useEffect(() => {
+    if (inView) {
+      let start = 0;
+      const duration = 1500;
+      const startTime = performance.now();
+      
+      const animate = (currentTime: number) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        
+        // easeOutExpo
+        const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+        
+        setCount(Number((easeProgress * value).toFixed(value % 1 !== 0 ? 2 : 0)));
+        
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        }
+      };
+      
+      requestAnimationFrame(animate);
+    }
+  }, [inView, value]);
+
+  return (
+    <div ref={ref} style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+      <span className="font-mono" style={{ fontSize: '1.5rem', color: '#06b6d4', fontWeight: 'bold' }}>
+        {count}{suffix}
+      </span>
+      <span style={{ fontSize: '0.75rem', color: '#666', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+        {label}
+      </span>
+    </div>
+  );
+};
 
 export const Hero = () => {
   return (
@@ -45,7 +88,7 @@ export const Hero = () => {
             }}>
               MARTIN ABURTO
             </span>
-            <span style={{ color: '#fff', lineHeight: 0.9 }}>PORTAFOLIO</span>
+            <ScrambleText text="PORTAFOLIO" trigger="mount" delay={0.2} style={{ color: '#fff', lineHeight: 0.9 }} />
           </motion.h1>
 
           <motion.div
@@ -93,6 +136,13 @@ export const Hero = () => {
                 </svg>
                 LinkedIn
               </a>
+            </div>
+
+            {/* Counters */}
+            <div style={{ marginTop: '3rem', display: 'flex', gap: '3rem', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '2rem' }}>
+              <AnimatedCounter value={95.8} suffix="%" label="Accuracy CNN" />
+              <AnimatedCounter value={4} label="Años Exp. Académica" />
+              <AnimatedCounter value={5} suffix="+" label="Proyectos" />
             </div>
           </motion.div>
         </div>

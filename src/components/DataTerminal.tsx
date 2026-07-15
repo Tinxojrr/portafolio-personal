@@ -4,13 +4,14 @@ import { GlassPanel } from './GlassPanel';
 
 const logLines = [
   "Initializing cluster nodes...",
-  "Starting data pipeline...",
-  "Connecting to BigQuery [OK]",
+  "Fetching BigQuery dataset...",
   "Ingesting stream (12.4GB/s)...",
-  "Model training started...",
-  "Epoch 1/50 - loss: 0.2314",
-  "Epoch 2/50 - loss: 0.1892",
+  "Model checkpoint saved.",
+  "Deploying to Cloud Run...",
+  "Cache hit ratio: 94.2%",
   "Syncing metadata to bucket...",
+  "Running ETL transformations...",
+  "PostgreSQL connection [OK]",
   "System health: OPTIMAL."
 ];
 
@@ -22,11 +23,11 @@ export const DataTerminal = () => {
     const interval = setInterval(() => {
       setLines(prev => {
         const newLines = [...prev, logLines[index]];
-        if (newLines.length > 5) newLines.shift();
+        if (newLines.length > 4) newLines.shift();
         return newLines;
       });
       index = (index + 1) % logLines.length;
-    }, 1500);
+    }, 3500);
     
     return () => clearInterval(interval);
   }, []);

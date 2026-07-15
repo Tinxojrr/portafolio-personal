@@ -1,33 +1,35 @@
 import { motion } from 'framer-motion';
 import { GlassPanel } from './GlassPanel';
+import { ScrambleText } from './ScrambleText';
 
 const certCategories = [
   {
     category: "Gestión & Liderazgo",
     items: [
-      { title: "SCRUM MASTER & PRODUCT OWNER", acronyms: ["SMPC", "SPOPC"] },
-      { title: "SOFTWARE PROJECT LEADER", acronyms: ["SPLPC"] },
+      { title: "SCRUM MASTER & PRODUCT OWNER", acronyms: ["Scrum Master Professional", "Scrum Product Owner"] },
+      { title: "SOFTWARE PROJECT LEADER", acronyms: ["Software Project Leader Professional"] },
     ]
   },
   {
     category: "Inteligencia Artificial",
     items: [
-      { title: "ARTIFICIAL INTELLIGENCE EXPERT", acronyms: ["CAIEC"] },
-      { title: "AI PROJECT MANAGER FOUNDATION", acronyms: ["AIPMFPC"] },
+      { title: "ARTIFICIAL INTELLIGENCE EXPERT", acronyms: ["Certified AI Expert"] },
+      { title: "AI PROJECT MANAGER FOUNDATION", acronyms: ["AI Project Management"] },
+      { title: "MICROSOFT CERTIFIED: AZURE AI FUNDAMENTALS", acronyms: ["AI-900"] }
     ]
   },
   {
     category: "Ciberseguridad & Datos",
     items: [
-      { title: "ETHICAL HACKING PROFESSIONAL", acronyms: ["CEHPC"] },
-      { title: "DATA PROTECTION & SECURITY", acronyms: ["LGPDF", "I22301F"] },
+      { title: "ETHICAL HACKING PROFESSIONAL", acronyms: ["Certified Ethical Hacker"] },
+      { title: "DATA PROTECTION & SECURITY", acronyms: ["Ley General de Protección de Datos", "ISO 22301 Foundation"] },
     ]
   }
 ];
 
 export const Certifications = () => {
   return (
-    <section style={{ position: 'relative', zIndex: 1, padding: '6rem 10% 4rem', marginTop: '4rem' }}>
+    <section id="certificaciones" style={{ position: 'relative', zIndex: 1, padding: '6rem 10% 4rem', marginTop: '4rem' }}>
       
       {/* Nebulosa local para asegurar que haya luz detrás de estas cards y el glass haga blur */}
       <div style={{
@@ -102,13 +104,13 @@ export const Certifications = () => {
                       
                       <div style={{ padding: '1.75rem 1.75rem 1.75rem 2.5rem' }}>
                         <h4 style={{ 
-                          fontFamily: 'Archivo Black, sans-serif', 
+                          fontFamily: 'Space Grotesk, sans-serif', 
                           fontSize: '1.15rem', 
                           color: '#fff', 
                           margin: '0 0 1rem 0', 
                           lineHeight: 1.25 
                         }}>
-                          {cert.title}
+                          <ScrambleText text={cert.title} trigger="inView" delay={(groupIdx * 0.1) + (certIdx * 0.1)} />
                         </h4>
                         
                         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>

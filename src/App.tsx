@@ -1,9 +1,12 @@
 import { useEffect } from 'react';
 import Lenis from '@studio-freight/lenis';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { AnimatePresence, LayoutGroup } from 'framer-motion';
 import { Preloader } from './components/Preloader';
 import { CustomCursor } from './components/CustomCursor';
-import { AmbientBackground } from './components/AmbientBackground';
+import { DataMesh } from './components/DataMesh';
+import { Navbar } from './components/Navbar';
+import { ScrollToTopBtn } from './components/ScrollToTopBtn';
 import { Home } from './pages/Home';
 import { ProjectDetails } from './pages/ProjectDetails';
 import './index.css';
@@ -14,6 +17,21 @@ const ScrollToTop = () => {
     window.scrollTo(0, 0);
   }, [pathname]);
   return null;
+};
+
+const AnimatedRoutes = () => {
+  const location = useLocation();
+  
+  return (
+    <LayoutGroup>
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<Home />} />
+          <Route path="/proyecto/:id" element={<ProjectDetails />} />
+        </Routes>
+      </AnimatePresence>
+    </LayoutGroup>
+  );
 };
 
 function App() {
@@ -42,11 +60,10 @@ function App() {
       <ScrollToTop />
       <Preloader />
       <CustomCursor />
-      <AmbientBackground />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/proyecto/:id" element={<ProjectDetails />} />
-      </Routes>
+      <DataMesh />
+      <Navbar />
+      <ScrollToTopBtn />
+      <AnimatedRoutes />
     </BrowserRouter>
   );
 }

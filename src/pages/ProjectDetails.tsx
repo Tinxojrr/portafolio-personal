@@ -1,10 +1,12 @@
 import { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useNavigationType } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ScrambleText } from '../components/ScrambleText';
 
 export const ProjectDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const navType = useNavigationType();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   // Mock de base de datos de los proyectos (el usuario puede modificar esto)
@@ -34,16 +36,32 @@ export const ProjectDetails = () => {
       problem: 'Necesidad de un sistema robusto para la gestión financiera personal con suscripciones automatizadas.',
       solution: 'Plataforma SaaS fullstack con integración de pasarela de pagos Stripe y panel de administración en tiempo real.',
       architecture: 'React (Vite) -> FastAPI REST -> Redis Cache -> Stripe API'
+    },
+    'pipeline-big-data': {
+      title: 'Pipeline Big Data',
+      role: 'Data Engineer / Cloud Architect',
+      stack: ['GCP', 'Python', 'BigQuery', 'Dataflow', 'Looker'],
+      problem: 'Silos de datos fragmentados en el sector retail impedían el análisis unificado y causaban decisiones de negocio basadas en reportes con más de 48 horas de retraso.',
+      solution: 'Implementación de pipelines de datos automatizados (ETL) para ingesta, limpieza y orquestación de datos transaccionales hacia un Data Warehouse en la nube, habilitando dashboards interactivos actualizados en tiempo real.',
+      architecture: 'Cloud Storage (Data Lake) -> Cloud Dataflow (Apache Beam) -> BigQuery (DWH) -> Looker Studio'
+    },
+    'cnn-clasificador': {
+      title: 'CNN Clasificador',
+      role: 'Machine Learning Engineer',
+      stack: ['Python', 'TensorFlow', 'Keras', 'OpenCV'],
+      problem: 'Alta incidencia de falsos positivos en la clasificación manual de imágenes médicas, reduciendo la eficiencia de los especialistas y retrasando el diagnóstico inicial.',
+      solution: 'Desarrollo y entrenamiento de un modelo de Deep Learning (Redes Neuronales Convolucionales) para clasificación automatizada de imágenes. Se implementó data augmentation y transfer learning para maximizar la precisión con el dataset disponible.',
+      architecture: 'Raw Images -> OpenCV (Pre-processing) -> Keras (CNN Model) -> TensorFlow Serving'
     }
   };
 
   const data = projectData[id || ''] || {
     title: id?.toUpperCase()?.replace('-', ' '),
-    role: 'Data Engineer / Cloud Architect',
-    stack: ['GCP', 'Python', 'BigQuery'],
-    problem: 'Complejidad en el procesamiento y almacenamiento de grandes volúmenes de datos.',
-    solution: 'Implementación de pipelines automatizados (ETL) para limpieza y orquestación de datos en la nube.',
-    architecture: 'Cloud Storage -> Dataflow -> BigQuery -> Looker Studio'
+    role: 'Software Engineer',
+    stack: [],
+    problem: 'Proyecto no encontrado.',
+    solution: 'Información no disponible.',
+    architecture: 'N/A'
   };
 
   return (
@@ -60,13 +78,14 @@ export const ProjectDetails = () => {
 
       <div style={{ display: 'flex', alignItems: 'center', gap: '2rem', flexWrap: 'wrap' }}>
         <motion.h1 
+          layoutId={`project-title-${id}`}
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.2, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="text-huge"
           style={{ margin: 0 }}
         >
-          {data.title}
+          {navType === 'PUSH' ? data.title : <ScrambleText text={data.title} trigger="mount" delay={0.2} />}
         </motion.h1>
         
         {data.link && (

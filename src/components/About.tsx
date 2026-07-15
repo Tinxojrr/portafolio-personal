@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 
 export const About = () => {
   return (
-    <section className="section-padding" style={{ minHeight: '80vh', display: 'flex', alignItems: 'center' }}>
+    <section id="about" className="section-padding" style={{ minHeight: '80vh', display: 'flex', alignItems: 'center' }}>
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
